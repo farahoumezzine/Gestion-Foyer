@@ -79,34 +79,31 @@ public class ChambreServiceImpl implements IChambreService {
 
     //un service qui se déclenche toutes les 5 minutes
     //permettant d'afficher nbr total des chambres + pourcentage + type
-    @Scheduled(cron = "0 */2 * * * *")// execute every 2 minutes
+    @Scheduled(cron="0 */5 * * * *")
     public void pourcentageChambreParTypeChambre() {
-
-        List<Chambre> chambres = chambreRepository.findAll();
-
-        //nbr total de chambres
-        int totalchambres = chambres.size();
-        log.info("Nombre total des chambres {}", totalchambres);
-
-        if (totalchambres > 0) {
-            //Hash Map named count By type = cle value : system dic pour compter les chambres par type
-            Map<String, Integer> countByType = new HashMap<>();
-
-
-            for (Chambre chambre : chambres) {
-                String type = String.valueOf(chambre.getTypeC());//pour chaque chambre je vais voir son type
-                //cle type et value incrementer
-                countByType.put(type, countByType.getOrDefault(type, 0) + 1);
+        List<Chambre> chambres=chambreRepository.findAll();
+        List<Chambre> chambresSimples=new ArrayList<>();
+        List<Chambre> chambresDoubles=new ArrayList<>();
+        List<Chambre> chambresTriples=new ArrayList<>();
+        Map<String,Integer> countByType=new HashMap<>();
+        if(!chambres.isEmpty()){
+            log.info("Nombre total des chambres: {}",chambres.size());
+            for(Chambre c:chambres){
+                String type=String.valueOf(c.getTypeC());
+                countByType.put(type,countByType.getOrDefault(type,0)+1);
             }
-            // calcul et affichage du % pour chaue type
-            for (Map.Entry<String, Integer> entry : countByType.entrySet()){// pour chaque elemt du hash map
-                String type = String.getKey();
-                int count = entry.getValue();
-                double pourcentage = (entry.getValue() * 100.0) / totalchambres;
-                log.info("Pourcentage des chambres type {} : {}%", type, pourcentage);
-            }}else{
-            log.info("Aucune chambre trouvée");
-        };
+            for(Map.Entry<String,Integer> e:countByType.entrySet()){
+                String type=e.getKey();
+                Integer count=e.getValue();
+                Double pourcentage=(count*100.0)/chambres.size();
+                log.info("Pourcentage des chambres de type {}: {}",type,pourcentage);
+            }
+        }else{
+            log.info("Aucun chambre");
+        }
 
     }
-}
+
+
+    }
+
