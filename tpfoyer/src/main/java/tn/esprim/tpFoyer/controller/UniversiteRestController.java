@@ -35,5 +35,14 @@ public class UniversiteRestController {
         return universiteService.updateUniversite(uni);
     }
 
+    @PostMapping("/affecter-foyer/{idFoyer}/{nomUniversite}")
+    public Universite affcterFoyerAUniversite(@PathVariable("idFoyer") long idFoyer,@PathVariable("nomUniversite") String nomUniversite) {
+        return universiteService.affcterFoyerAUniversite(idFoyer, nomUniversite);
+    }
+
+    @PostMapping("/desaffecter-foyer/{idUniversite}")
+    public Universite desaffecterFoyerAUniversite(@PathVariable("idUniversite") long idUniversite) {
+        return universiteService.desaffecterFoyerAUniversite(idUniversite);
+    }
 
 }
