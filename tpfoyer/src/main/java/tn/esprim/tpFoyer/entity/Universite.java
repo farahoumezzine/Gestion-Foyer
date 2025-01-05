@@ -1,5 +1,6 @@
 package tn.esprim.tpFoyer.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +22,11 @@ public class Universite implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUniversite;
 
+    @JsonProperty("nomUniversite")
     @Column(name = "nom_universite")
     private String nomUniversite;
+
+    @JsonProperty("adresseUniversite")
 
     @Column(name = "adresse_universite")
     private String adresseUniversite;
