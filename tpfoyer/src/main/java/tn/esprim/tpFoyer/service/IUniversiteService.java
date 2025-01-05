@@ -11,6 +11,9 @@ public interface IUniversiteService {
     public Universite addUniversite(Universite u);
     public Universite updateUniversite(Universite uni);
 
+    //service avancee
 
+    public Universite affcterFoyerAUniversite(long idFoyer, String nomUniversite);
+    public Universite desaffecterFoyerAUniversite(long idUniversite);
 
 }
