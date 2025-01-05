@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -28,4 +30,6 @@ public class Bloc implements Serializable {
     @ManyToOne
     private Foyer foyer;
 
+    @OneToMany(mappedBy = "bloc", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Chambre> chambres;
 }
